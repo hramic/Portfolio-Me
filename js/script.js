@@ -2,6 +2,7 @@
 const navButtons = document.querySelectorAll('.nav-btn');
 const sectionsWrapper = document.getElementById('sectionsWrapper');
 const contactBtn = document.getElementById('contactBtn');
+const contactClose = document.getElementById('contactClose');
 const contactOverlay = document.getElementById('contactOverlay');
 const mainContainer = document.getElementById('mainContainer');
 
@@ -33,20 +34,28 @@ navButtons.forEach((btn, index) => {
 // Contact button functionality
 let contactActive = false;
 
+function openContact() {
+    contactActive = true;
+    contactBtn.classList.add('active');
+    contactOverlay.classList.add('active');
+    mainContainer.classList.add('hidden');
+}
+
+function closeContact() {
+    contactActive = false;
+    contactBtn.classList.remove('active');
+    contactOverlay.classList.remove('active');
+    mainContainer.classList.remove('hidden');
+}
+
 contactBtn.addEventListener('click', () => {
-    contactActive = !contactActive;
-    
-    if (contactActive) {
-        // Show contact overlay
-        contactBtn.classList.add('active');
-        contactOverlay.classList.add('active');
-        mainContainer.classList.add('hidden');
-    } else {
-        // Hide contact overlay
-        contactBtn.classList.remove('active');
-        contactOverlay.classList.remove('active');
-        mainContainer.classList.remove('hidden');
+    if (!contactActive) {
+        openContact();
     }
+});
+
+contactClose.addEventListener('click', () => {
+    closeContact();
 });
 
 // Keyboard navigation
