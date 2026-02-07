@@ -1,203 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hamza Ramić — Portfolio</title>
-    <meta name="description" content="Portfolio website of Hamza Ramić." />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamza Ramić - UI/UX Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <div class="toggle-circle"></div>
+        <span class="toggle-label">Switch theme</span>
+    </div>
 
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/script.js" defer></script>
-  </head>
+    <!-- Contact Button -->
+    <button class="contact-btn" id="contactBtn">CONTACT</button>
 
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <header class="site-header" id="top">
-      <div class="container header-inner">
-        <a class="brand" href="#top" aria-label="Go to top">
-          <span class="brand-dot" aria-hidden="true"></span>
-          <span>Hamza Ramić</span>
-        </a>
-
-        <nav class="nav" aria-label="Primary navigation">
-          <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
-            <span class="sr-only">Toggle menu</span>
-            <span class="hamburger" aria-hidden="true"></span>
-          </button>
-
-          <ul class="nav-menu" id="navMenu">
-            <li><a href="#home" class="nav-link">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" data-section="0">HOME</button>
+            <button class="nav-btn" data-section="1">ABOUT</button>
+            <button class="nav-btn" data-section="2">WORK</button>
         </nav>
 
-        <button class="btn ghost" id="themeToggle" type="button" aria-label="Toggle theme">
-          Theme
-        </button>
-      </div>
-    </header>
+        <!-- Sections Wrapper -->
+        <div class="sections-wrapper" id="sectionsWrapper">
+            <!-- HOME Section -->
+            <section class="section home-section">
+                <div class="portfolio-label">PORTFOLIO 01</div>
+                <div class="home-content">
+                    <h1 class="main-title">
+                        <span class="title-line">HAMZA RAMIĆ</span>
+                        <span class="title-line">CREATIVE</span>
+                        <span class="title-line gradient-text">
+                            <span class="gradient-box"></span>
+                            <span class="ui-ux">UI/UX</span>
+                        </span>
+                        <span class="title-line">DESIGNER</span>
+                    </h1>
+                </div>
+                <div class="year-label">©2026</div>
+            </section>
 
-    <main id="main">
-      <!-- HERO -->
-      <section class="section hero" id="home">
-        <div class="container hero-grid">
-          <div class="stagger">
-            <p class="eyebrow reveal" style="--i:0">Developer • Designer • Builder</p>
+            <!-- ABOUT Section -->
+            <section class="section about-section">
+                <div class="about-content">
+                    <h2 class="section-title">ABOUT</h2>
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <p>I'm Hamza, a UI/UX and graphic designer exploring the space where visual identity meets user experience - where clarity, balance and intention transform digital products into meaningful experiences.</p>
+                            <p>Driven by curiosity and a strong attention to detail, I craft thoughtful user - centered designs that combine clean visuals, intuitive structure and purposeful interaction.</p>
+                        </div>
+                        <div class="about-image">
+                            <img src="/img/hamza_no_bg.png" alt="Hamza Ramić">
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            <h1 class="reveal" style="--i:1">
-              Hi, my name is <span class="accent">Hamza Ramić</span>.
-            </h1>
-
-            <p class="lead reveal" style="--i:2">
-              I do bunch of things like
-              <span class="typewrap">
-                <span id="typeTarget" class="type" aria-label="Roles"></span><span class="caret" aria-hidden="true"></span>
-              </span>
-            </p>
-
-            <div class="hero-actions reveal" style="--i:3">
-              <a class="btn primary" href="#projects">View projects</a>
-              <a class="btn" href="#contact">Contact</a>
-            </div>
-
-            <div class="meta reveal" style="--i:4">
-              <span class="pill">Sarajevo</span>
-              <span class="pill">JavaScript</span>
-              <span class="pill">Swift</span>
-            </div>
-          </div>
-
-          <div class="hero-card card reveal" style="--i:5">
-            <!-- Best place for a portrait: visible instantly + fits card nicely -->
-            <img class="avatar-img" src="/img/hamza.png" alt="Portrait of Hamza Ramić" />
-
-            <div class="hero-card-body">
-              <h2 class="h3">Available for work</h2>
-              <p class="muted">
-                Add 2-3 highlights here (freelance, internships, full-time, etc.).
-              </p>
-              <ul class="checklist">
-                <li>Responsive UI</li>
-                <li>Clean architecture</li>
-                <li>Fast performance</li>
-              </ul>
-            </div>
-          </div>
+            <!-- WORK Section -->
+            <section class="section work-section">
+                <h2 class="section-title">WORK</h2>
+                <div class="work-content">
+                    <p class="coming-soon">Projects coming soon...</p>
+                </div>
+            </section>
         </div>
-      </section>
+    </div>
 
-      <!-- ABOUT -->
-      <section class="section reveal" id="about">
-        <div class="container">
-          <div class="section-head stagger">
-            <h2 class="reveal" style="--i:0">About</h2>
-            <p class="muted reveal" style="--i:1">A quick intro and your core skills.</p>
-          </div>
-
-          <div class="two-col stagger">
-            <div class="card reveal" style="--i:0">
-              <h3>Who you are</h3>
-              <p>
-                Write a short paragraph about your background, what you’re learning, and what you want to build next.
-              </p>
-              <p class="muted">
-                Tip: keep it concrete—mention tech stacks and the kind of problems you enjoy.
-              </p>
+    <!-- Contact Overlay -->
+    <div class="contact-overlay" id="contactOverlay">
+        <div class="contact-content">
+            <h2 class="contact-title">CONTACT</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <a href="/cdn-cgi/l/email-protection#8ae2ebe7f0ebcaeff2ebe7fae6efa4e9e5e7" class="contact-link"><span class="__cf_email__" data-cfemail="5e363f33243f1e3b263f332e323b703d3133">[email&#160;protected]</span></a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">LinkedIn</span>
+                    <a href="https://linkedin.com" target="_blank" class="contact-link">linkedin.com/in/hamzaramic</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Behance</span>
+                    <a href="https://behance.net" target="_blank" class="contact-link">behance.net/hamzaramic</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Instagram</span>
+                    <a href="https://instagram.com" target="_blank" class="contact-link">@hamzaramic</a>
+                </div>
             </div>
-
-            <div class="card reveal" style="--i:1">
-              <h3>Skills</h3>
-              <div class="tags" id="skillsList"></div>
-            </div>
-          </div>
         </div>
-      </section>
+    </div>
 
-      <!-- PROJECTS -->
-      <section class="section reveal" id="projects">
-        <div class="container">
-          <div class="section-head stagger">
-            <h2 class="reveal" style="--i:0">Projects</h2>
-            <p class="muted reveal" style="--i:1">A few things you’ve built (cards are generated from JS).</p>
-          </div>
-
-          <div class="toolbar stagger">
-            <input
-              class="input reveal"
-              style="--i:0"
-              id="projectSearch"
-              type="search"
-              placeholder="Search projects (e.g. swift, api, ui)..."
-              aria-label="Search projects"
-            />
-            <select class="input reveal" style="--i:1" id="projectFilter" aria-label="Filter projects">
-              <option value="all">All</option>
-            </select>
-          </div>
-
-          <div class="grid" id="projectGrid" aria-live="polite"></div>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section class="section reveal" id="contact">
-        <div class="container">
-          <div class="section-head stagger">
-            <h2 class="reveal" style="--i:0">Contact</h2>
-            <p class="muted reveal" style="--i:1">This form is front-end only (it validates + shows a message).</p>
-          </div>
-
-          <div class="two-col stagger">
-            <div class="card reveal" style="--i:0">
-              <h3>Message</h3>
-              <form id="contactForm" novalidate>
-                <label class="field">
-                  <span>Name</span>
-                  <input class="input" name="name" type="text" placeholder="Jane Doe" required minlength="2" />
-                </label>
-
-                <label class="field">
-                  <span>Email</span>
-                  <input class="input" name="email" type="email" placeholder="jane@email.com" required />
-                </label>
-
-                <label class="field">
-                  <span>Message</span>
-                  <textarea class="input" name="message" rows="5" placeholder="How can I help?" required minlength="10"></textarea>
-                </label>
-
-                <button class="btn primary" type="submit">Send</button>
-                <p class="form-note muted" id="formNote" role="status" aria-live="polite"></p>
-              </form>
-            </div>
-
-            <div class="card reveal" style="--i:1">
-              <h3>Links</h3>
-              <ul class="link-list">
-                <li><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a></li>
-                <li><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a></li>
-                <li><a href="#" target="_blank" rel="noreferrer">Resume (PDF)</a></li>
-              </ul>
-
-              <hr class="sep" />
-
-              <p class="muted">
-                Prefer email? <a href="mailto:you@example.com">you@example.com</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer class="site-footer reveal">
-        <div class="container footer-inner">
-          <p class="muted">© <span id="year"></span> Hamza Ramić. All rights reserved.</p>
-          <a class="to-top" href="#top">Back to top</a>
-        </div>
-      </footer>
-    </main>
-  </body>
+    <script src="/js/script.js"></script>
+</body>
 </html>
