@@ -238,3 +238,79 @@ themeToggle.addEventListener('click', () => {
     // Rotate icon animation
     toggleIcon.style.transform = theme === 'dark' ? 'rotate(180deg)' : 'rotate(0deg)';
 });
+
+
+// ===== PROJECT SHOWCASE =====
+const projectsSlider = document.getElementById('projectsSlider');
+const projectSlides = document.querySelectorAll('.project-slide');
+const prevProjectBtn = document.getElementById('prevProject');
+const nextProjectBtn = document.getElementById('nextProject');
+const projectCounter = document.getElementById('projectCounter');
+const workDescription = document.getElementById('workDescription');
+
+let currentProject = 0;
+const totalProjects = projectSlides.length;
+
+// Project descriptions
+const projectDescriptions = [
+    "Short description of a project",
+    "Another amazing project description",
+    "Third project with creative details"
+];
+
+function updateProject() {
+    // Update slider position
+    const offset = -currentProject * 100;
+    projectsSlider.style.transform = `translateX(${offset}%)`;
+    
+    // Update active class
+    projectSlides.forEach((slide, index) => {
+        if (index === currentProject) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
+    });
+    
+    // Update counter
+    const projectNum = String(currentProject + 1).padStart(2, '0');
+    projectCounter.textContent = `PROJ ${projectNum}`;
+    
+    // Update description
+    workDescription.textContent = projectDescriptions[currentProject];
+    
+    // Update button states
+    prevProjectBtn.disabled = currentProject === 0;
+    nextProjectBtn.disabled = currentProject === totalProjects - 1;
+}
+
+// Navigation handlers
+prevProjectBtn.addEventListener('click', () => {
+    if (currentProject > 0) {
+        currentProject--;
+        updateProject();
+    }
+});
+
+nextProjectBtn.addEventListener('click', () => {
+    if (currentProject < totalProjects - 1) {
+        currentProject++;
+        updateProject();
+    }
+});
+
+// Keyboard navigation for projects
+document.addEventListener('keydown', (e) => {
+    if (currentSection !== 2) return; // Only work when on WORK section
+    
+    if (e.key === 'ArrowUp' && currentProject > 0) {
+        currentProject--;
+        updateProject();
+    } else if (e.key === 'ArrowDown' && currentProject < totalProjects - 1) {
+        currentProject++;
+        updateProject();
+    }
+});
+
+// Initialize
+updateProject();

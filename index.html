@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Portfolio-Me/css/style.css">
+    <link rel="icon" href="/Portfolio-Me/img/lightsymbol.svg">
     <!-- kad budes deployo, ispred svakog path-a dodati /Portfolio-Me/... -->
 </head>    
 <body>
@@ -57,7 +58,7 @@
             <!-- ABOUT Section -->
             <section class="section about-section">
                 <div class="about-content">
-                    <h2 class="section-title">ABOUT</h2>
+                    <h2 class="section-title about-title">ABOUT</h2>
                     <div class="about-grid">
                         <div class="about-text">
                             <p>I'm Hamza, a UI/UX and graphic designer exploring the space where visual identity meets user experience - where clarity, balance and intention transform digital products into meaningful experiences.</p>
@@ -72,9 +73,45 @@
 
             <!-- WORK Section -->
             <section class="section work-section">
-                <h2 class="section-title">WORK</h2>
-                <div class="work-content">
-                    <p class="coming-soon">Projects coming soon...</p>
+                <div class="work-left">
+                    <h2 class="section-title work-title">WORK</h2>
+                    <p class="work-description" id="workDescription">Short description of a project</p>
+                </div>
+                
+                <div class="work-right">
+                    <div class="project-showcase">
+                        <div class="projects-slider" id="projectsSlider">
+                            <!-- Project 1 -->
+                            <div class="project-slide active">
+                                <img src="/Portfolio-Me/img/project1.png" alt="Project 1" class="project-image">
+                            </div>
+                            
+                            <!-- Project 2 -->
+                            <div class="project-slide">
+                                <img src="/Portfolio-Me/img/project2.png" alt="Project 2" class="project-image">
+                            </div>
+                            
+                            <!-- Project 3 -->
+                            <div class="project-slide">
+                                <img src="/Portfolio-Me/img/project3.jpg" alt="Project 3" class="project-image">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project Navigation -->
+                    <div class="project-nav">
+                        <button class="project-arrow prev" id="prevProject">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 18l-6-6 6-6"/>
+                            </svg>
+                        </button>
+                        <span class="project-counter" id="projectCounter">PROJ 01</span>
+                        <button class="project-arrow next" id="nextProject">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>
