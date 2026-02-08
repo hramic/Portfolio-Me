@@ -89,7 +89,7 @@ window.addEventListener('wheel', (e) => {
     
     setTimeout(() => {
         isScrolling = false;
-    }, 800);
+    }, 1200);
 });
 
 // Touch swipe support for mobile
