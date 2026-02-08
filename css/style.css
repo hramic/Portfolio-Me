@@ -86,7 +86,7 @@ body::before {
     letter-spacing: 2px;
     cursor: pointer;
     z-index: 100;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contact-btn:hover {
@@ -94,7 +94,7 @@ body::before {
 }
 
 .contact-btn.active {
-    font-size: 80px;
+    font-size: 130px;
     letter-spacing: 8px;
     pointer-events: all;
 }
@@ -181,13 +181,17 @@ body::before {
 .portfolio-label {
     position: absolute;
     top: 50%;
-    right: 65px;
+    right: 55px;
     font-size: 13px;
     letter-spacing: 3px;
     writing-mode: vertical-rl;
     transform: translateY(-50%);
     opacity: 0.6;
 }
+.decrypt-text {
+    display: inline-block;
+}
+
 
 .year-label {
     position: absolute;
@@ -215,9 +219,11 @@ body::before {
 .title-line {
     display: block;
     position: relative;
+    font-size: 120px;
 }
 .creative{
-    left: 50%;
+    left: 30%;
+    font-weight: 600;
 }
 
 .gradient-text {
@@ -247,10 +253,15 @@ body::before {
     pointer-events: none;
 }
 
+.designer{
+    left: 73%;
+}
+
 .ui-ux {
     font-weight: 500;
     position: relative;
     z-index: 1;
+    left: 100%;
 }
 
 /* ABOUT Section */
@@ -473,6 +484,9 @@ body::before {
 }
 
 @media (max-width: 768px) {
+    .title-line{
+        font-size: clamp(40px, 10vw, 80px);
+    }
     .main-title {
         font-size: clamp(40px, 10vw, 80px);
     }

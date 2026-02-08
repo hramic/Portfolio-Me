@@ -127,3 +127,92 @@ window.addEventListener('load', () => {
         document.body.style.opacity = '1';
     }, 100);
 });
+
+
+
+
+
+// Decrypt Effect
+class DecryptEffect {
+    constructor(element) {
+        this.element = element;
+        this.text = element.getAttribute('data-text');
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        
+        this.scramble();
+        setTimeout(() => this.decrypt(), 220);
+    }
+
+    scramble() {
+        let scrambled = '';
+        for (let i = 0; i < this.text.length; i++) {
+            if (this.text[i] === ' ') {
+                scrambled += ' ';
+            } else {
+                scrambled += this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+        this.element.textContent = scrambled;
+    }
+
+    decrypt() {
+        let iteration = 0;
+        const interval = setInterval(() => {
+            this.element.textContent = this.text
+                .split('')
+                .map((char, index) => {
+                    if (index < iteration) {
+                        return this.text[index];
+                    }
+                    if (char === ' ') return ' ';
+                    return this.chars[Math.floor(Math.random() * this.chars.length)];
+                })
+                .join('');
+
+            if (iteration >= this.text.length) {
+                clearInterval(interval);
+                this.element.textContent = this.text;
+            }
+            iteration += 0.3;
+        }, 50);
+    }
+}
+
+// Pokreni na load
+document.addEventListener('DOMContentLoaded', () => {
+    const label = document.querySelector('.portfolio-label.auto-decrypt');
+    if (label) {
+        const effect = new DecryptEffect(label);
+        
+        // On hover
+        label.addEventListener('mouseenter', () => {
+            effect.decrypt();
+        });
+    }
+});
+/*
+document.addEventListener('DOMContentLoaded', () => {
+    const label = document.querySelector('.toggle-label.auto-decrypt');
+    if (label) new DecryptEffect(label);
+});
+*/
+document.addEventListener('DOMContentLoaded', () => {
+    const label = document.querySelector('.title-line.auto-decrypt');
+    if (label) new DecryptEffect(label);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const label = document.querySelector('.year-label.auto-decrypt');
+    if (label) {
+        const effect = new DecryptEffect(label);
+        
+        // On load
+        effect.scramble();
+        setTimeout(() => effect.decrypt(), 300);
+        
+        // On hover
+        label.addEventListener('mouseenter', () => {
+            effect.decrypt();
+        });
+    }
+});
