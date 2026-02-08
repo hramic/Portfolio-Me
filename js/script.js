@@ -216,3 +216,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// ===== THEME TOGGLE =====
+const themeToggle = document.querySelector('.theme-toggle');
+const toggleIcon = document.querySelector('.toggle-icon');
+
+// Check for saved theme or default to light
+const currentTheme = localStorage.getItem('theme') || 'light';
+if (currentTheme === 'dark') {
+    document.body.classList.add('dark-theme');
+}
+
+// Toggle theme
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    
+    const theme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    
+    // Rotate icon animation
+    toggleIcon.style.transform = theme === 'dark' ? 'rotate(180deg)' : 'rotate(0deg)';
+});

@@ -4,13 +4,30 @@
     box-sizing: border-box;
 }
 
+/* novi root i body.dark-theme*/
+
 :root {
-    --bg-color: #1a1a1a;
-    --text-color: #ffffff;
+    /* Light theme (default) */
+    --bg-color: #f5f5f5;
+    --text-color: #1a1a1a;
+    --text-secondary: #666666;
     --accent-color: #ff6b4a;
     --gradient-start: #de1d08;
     --gradient-middle: #ffb366;
     --gradient-end: #a855f7;
+    --nav-bg: #1a1a1a;
+    --nav-text: #fff;
+    --noise-opacity: 0.03;
+}
+
+body.dark-theme {
+    /* Dark theme */
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --text-secondary: #999999;
+    --nav-bg: #fff;
+    --nav-text: #1a1a1a;
+    --noise-opacity: 0.03;
 }
 
 body {
@@ -20,6 +37,7 @@ body {
     overflow: hidden;
     font-weight: 200;
     position: relative;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Set all elements to ExtraLight weight by default */
@@ -40,7 +58,7 @@ body::before {
     z-index: 0;
 }
 
-/* Theme Toggle */
+/* Theme-toggle */
 .theme-toggle {
     position: fixed;
     top: 40px;
@@ -57,19 +75,23 @@ body::before {
     opacity: 0.8;
 }
 
-.toggle-circle {
+.toggle-icon {
     width: 24px;
     height: 24px;
-    border-radius: 50%;
-    background-color: var(--text-color);
-    border: 2px solid var(--text-color);
-    transition: all 0.3s ease;
+    transition: transform 0.5s ease, filter 0.4s ease;
+    filter: invert(1);
+}
+
+body.dark-theme .toggle-icon {
+    filter: invert(0);
 }
 
 .toggle-label {
     font-size: 14px;
     letter-spacing: 0.5px;
     font-weight: 200;
+    color: var(--text-color);
+    transition: color 0.4s ease;
 }
 
 /* Contact Button */
@@ -86,7 +108,7 @@ body::before {
     letter-spacing: 2px;
     cursor: pointer;
     z-index: 100;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
 }
 
 .contact-btn:hover {
@@ -141,23 +163,24 @@ body::before {
     display: flex;
     gap: 0;
     z-index: 50;
-    background: rgba(255, 255, 255);
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
-    border-radius: 13px;
+    border-radius: 11px;
     padding: 2px;
+    transition: background 0.4s ease;
 }
 
 .nav-btn {
     padding: 7px 28px;
     background: none;
     border: none;
-    color: var(--bg-color);
+    color: var(--nav-text);
     font-family: 'Geist Mono', monospace;
     font-size: 17px;
     font-weight: 200;
     letter-spacing: 1px;
     cursor: pointer;
-    border-radius: 11px;
+    border-radius: 9px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
@@ -169,7 +192,7 @@ body::before {
 .nav-btn.active {
     background: var(--accent-color);
     font-weight: 700;
-    color: #fff;
+    color: var(--navt);
 }
 
 /* HOME Section */
@@ -202,6 +225,7 @@ body::before {
     opacity: 0.6;
     transform: rotate(-90deg);
     transform-origin: right center;
+    transition: color 0.4s ease
 }
 
 .home-content {
@@ -214,6 +238,7 @@ body::before {
     line-height: 0.95;
     font-weight: 200;
     letter-spacing: -0.02em;
+    transition: color 0.4s ease
 }
 
 .title-line {
@@ -230,6 +255,29 @@ body::before {
     position: relative;
     display: inline-block;
 }
+
+.gradient-box2 {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gradient-box2 img {
+    width: 100%;
+    height: auto;
+    display: absolute;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gradient-box2 {
+        max-width: 100%;
+        margin-top: 30px;
+    }
+}
+
 
 .gradient-box {
     position: absolute;
@@ -280,6 +328,7 @@ body::before {
     font-size: clamp(60px, 9vw, 140px);
     font-weight: 200;
     letter-spacing: -0.02em;
+    transition: color 0.4s ease
 }
 
 .about-grid {
@@ -301,6 +350,7 @@ body::before {
     line-height: 1.8;
     font-weight: 200;
     opacity: 0.9;
+    transition: color 0.4s ease
 }
 
 .about-image {
