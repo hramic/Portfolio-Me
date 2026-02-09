@@ -5,7 +5,6 @@
 }
 
 /* new root and body.dark-theme*/
-
 :root {
     /* Light theme (default) */
     --bg-color: #f5f5f5;
@@ -192,7 +191,7 @@ body.dark-theme .toggle-icon {
 }
 
 .nav-btn.active {
-    background: var(--accent-color);
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-middle) 100%);
     font-weight: 700;
     color: var(--nav-text);
 }
@@ -201,7 +200,7 @@ body.dark-theme .toggle-icon {
 .home-section {
     justify-content: flex-start;
     align-items: center;
-    gap: 60px;
+    gap: 40px;
 }
 
 .portfolio-label {
@@ -214,10 +213,10 @@ body.dark-theme .toggle-icon {
     transform: translateY(-50%);
     opacity: 0.6;
 }
+
 .decrypt-text {
     display: inline-block;
 }
-
 
 .year-label {
     position: absolute;
@@ -277,7 +276,6 @@ body.dark-theme .toggle-icon {
         margin-top: 30px;
     }
 }
-
 
 .gradient-box {
     position: absolute;
@@ -442,20 +440,24 @@ body.dark-theme .toggle-icon {
 }
 
 .project-arrow {
-    background: none;
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-middle) 100%);
     border: none;
     color: var(--nav-text);
     cursor: pointer;
-    padding: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 2px;
+    padding-top: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    border-radius: 50%;
+    border-radius: 20px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 .project-arrow:hover {
-    background: rgba(255, 255, 255, 0.1);
     transform: scale(1.1);
 }
 
@@ -465,7 +467,6 @@ body.dark-theme .toggle-icon {
 }
 
 .project-arrow:disabled:hover {
-    background: none;
     transform: scale(1);
 }
 
