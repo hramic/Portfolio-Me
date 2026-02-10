@@ -355,7 +355,10 @@ body.dark-theme .toggle-icon {
 .about-image {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    height: calc(100vh - 400px);
+    /*overflow: hidden;*/
+    /*padding-bottom: 200px;*/
 }
 
 .about-image img {
@@ -364,6 +367,7 @@ body.dark-theme .toggle-icon {
     height: auto;
     object-fit: contain;
     animation: fadeInUp 1s ease-out 0.3s both;
+    transform: translateY(15%);
 }
 
 /* WORK Section */
