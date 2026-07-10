@@ -314,6 +314,7 @@ const projectShowcase = document.getElementById('projectShowcase');
 const prevProjectBtn = document.getElementById('prevProject');
 const nextProjectBtn = document.getElementById('nextProject');
 const workDescription = document.getElementById('workDescription');
+const workProjectTitle = document.getElementById('workProjectTitle');
 const workGhost = document.getElementById('workGhost');
 
 let currentProject = 0;
@@ -323,12 +324,32 @@ function renderProjects() {
     projectNavTop.innerHTML = '';
 
     PROJECTS.forEach((project, index) => {
-        // Slide
+        // Slide with a browser-window style card
         const slide = document.createElement('div');
         slide.className = 'project-slide';
 
-        const wrap = document.createElement('div');
-        wrap.className = 'project-image-wrap';
+        const card = document.createElement('div');
+        card.className = 'project-card';
+
+        const bar = document.createElement('div');
+        bar.className = 'project-card-bar';
+
+        const dots = document.createElement('span');
+        dots.className = 'card-dots';
+        dots.innerHTML = '<i></i><i></i><i></i>';
+
+        const file = document.createElement('span');
+        file.className = 'card-file';
+        file.textContent = project.image.split('/').pop();
+
+        const cardIndex = document.createElement('span');
+        cardIndex.className = 'card-index';
+        cardIndex.textContent = String(index + 1).padStart(2, '0');
+
+        bar.append(dots, file, cardIndex);
+
+        const media = document.createElement('div');
+        media.className = 'project-card-media';
 
         const img = document.createElement('img');
         img.src = project.image;
@@ -336,11 +357,12 @@ function renderProjects() {
         img.className = 'project-image';
         img.loading = 'lazy';
         img.addEventListener('error', () => {
-            slide.innerHTML = `<div class="project-placeholder"><span>${project.title}</span><span class="placeholder-note">image not found</span></div>`;
+            media.innerHTML = `<div class="project-placeholder"><span>${project.title}</span><span class="placeholder-note">image not found</span></div>`;
         });
 
-        wrap.appendChild(img);
-        slide.appendChild(wrap);
+        media.appendChild(img);
+        card.append(bar, media);
+        slide.appendChild(card);
         projectsSlider.appendChild(slide);
 
         // Top nav item
@@ -378,17 +400,20 @@ function updateProject(instant = false) {
         item.classList.toggle('active', index === currentProject);
     });
 
-    // Description swap with a small fade
+    // Title + description swap with a small fade
     function setDescription() {
         if (PROJECTS[currentProject]) {
+            workProjectTitle.textContent = PROJECTS[currentProject].title;
             workDescription.innerHTML = PROJECTS[currentProject].description;
         }
+        workProjectTitle.classList.remove('switching');
         workDescription.classList.remove('switching');
     }
 
     if (instant || reducedMotion) {
         setDescription();
     } else {
+        workProjectTitle.classList.add('switching');
         workDescription.classList.add('switching');
         setTimeout(setDescription, 300);
     }
@@ -435,20 +460,20 @@ document.addEventListener('keydown', (e) => {
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches || reducedMotion) return;
 
     projectShowcase.addEventListener('mousemove', (e) => {
-        const wrap = projectsSlider.querySelectorAll('.project-slide')[currentProject]
-            ?.querySelector('.project-image-wrap');
-        if (!wrap) return;
+        const card = projectsSlider.querySelectorAll('.project-slide')[currentProject]
+            ?.querySelector('.project-card');
+        if (!card) return;
 
         const rect = projectShowcase.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        wrap.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+        card.style.transform = `rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
     });
 
     projectShowcase.addEventListener('mouseleave', () => {
-        const wrap = projectsSlider.querySelectorAll('.project-slide')[currentProject]
-            ?.querySelector('.project-image-wrap');
-        if (wrap) wrap.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        const card = projectsSlider.querySelectorAll('.project-slide')[currentProject]
+            ?.querySelector('.project-card');
+        if (card) card.style.transform = 'rotateY(0deg) rotateX(0deg)';
     });
 })();
 
