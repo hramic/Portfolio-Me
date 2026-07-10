@@ -773,6 +773,7 @@ body.dark-theme .toggle-orb {
 /* ===== ABOUT ===== */
 .about-section {
     justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .about-content {
@@ -780,6 +781,9 @@ body.dark-theme .toggle-orb {
     max-width: 1400px;
     position: relative;
     z-index: 2;
+    /* title sits below the header zone, anchored to the section content */
+    padding-top: 150px;
+    padding-bottom: 90px;
 }
 
 .section-title {
