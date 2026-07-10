@@ -62,33 +62,43 @@ homeSection.classList.remove('in-view');
     setTimeout(finish, duration + 600);
 })();
 
-// ===== SECTION NAVIGATION =====
-function navigateToSection(sectionIndex) {
-    if (sectionIndex === currentSection && sections[sectionIndex].classList.contains('in-view')) return;
-    currentSection = sectionIndex;
+// ===== SECTION NAVIGATION (vertical scroll) =====
+function setActiveSection(index) {
+    if (index === currentSection) return;
+    currentSection = index;
 
-    sectionsWrapper.style.transform = `translateX(${-sectionIndex * 100}vw)`;
-
-    navButtons.forEach((btn, index) => {
-        btn.classList.toggle('active', index === sectionIndex);
+    navButtons.forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
     });
 
-    // Reset reveals on inactive sections, trigger them on the target mid-slide
-    sections.forEach((section, index) => {
-        if (index !== sectionIndex) section.classList.remove('in-view');
-    });
-    setTimeout(() => {
-        sections[sectionIndex].classList.add('in-view');
-    }, 250);
-
-    // Progress indicator
-    progressFill.style.transform = `scaleX(${(sectionIndex + 1) / TOTAL_SECTIONS})`;
-    progressCurrent.textContent = String(sectionIndex + 1).padStart(2, '0');
+    progressFill.style.transform = `scaleX(${(index + 1) / TOTAL_SECTIONS})`;
+    progressCurrent.textContent = String(index + 1).padStart(2, '0');
 }
 
 navButtons.forEach((btn, index) => {
-    btn.addEventListener('click', () => navigateToSection(index));
+    btn.addEventListener('click', () => {
+        sections[index].scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+        decryptAll(sections[index]);
+    });
 });
+
+// Reveal animations re-run whenever a section (or the footer) enters the viewport
+const revealTargets = [...sections, document.getElementById('footer')].filter(Boolean);
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        // home reveals are triggered by the preloader on first load
+        if (entry.target === homeSection && document.getElementById('preloader')) return;
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+        } else {
+            entry.target.classList.remove('in-view');
+        }
+    });
+}, { threshold: 0.2 });
+
+revealTargets.forEach((el) => revealObserver.observe(el));
 
 // ===== CONTACT OVERLAY =====
 let contactActive = false;
@@ -97,6 +107,7 @@ function openContact() {
     contactActive = true;
     contactOverlay.classList.add('active');
     mainContainer.classList.add('hidden');
+    decryptAll(contactOverlay);
 }
 
 function closeContact() {
@@ -115,54 +126,88 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && contactActive) closeContact();
 });
 
-// ===== KEYBOARD / WHEEL / TOUCH NAVIGATION =====
-document.addEventListener('keydown', (e) => {
-    if (contactActive) return;
+// ===== SCROLL EFFECTS (progress bar, parallax, marquee skew) =====
+(function initScrollEffects() {
+    const scrollProgress = document.getElementById('scrollProgress');
+    const homeContent = document.querySelector('.home-content');
+    const ghosts = document.querySelectorAll('.section-ghost');
+    const marquee = document.querySelector('.marquee');
 
-    if (e.key === 'ArrowRight' && currentSection < TOTAL_SECTIONS - 1) {
-        navigateToSection(currentSection + 1);
-    } else if (e.key === 'ArrowLeft' && currentSection > 0) {
-        navigateToSection(currentSection - 1);
+    let lastY = window.scrollY;
+    let targetSkew = 0;
+    let skew = 0;
+    let ticking = false;
+
+    function apply() {
+        ticking = false;
+        const y = window.scrollY;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollProgress) {
+            scrollProgress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+        }
+
+        // nav + progress follow whichever section covers the viewport center
+        // (measured directly so it also works for sections taller than the screen)
+        const mid = window.innerHeight / 2;
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= mid && rect.bottom >= mid) setActiveSection(index);
+        });
+
+        if (reducedMotion) return;
+
+        // hero drifts up slower than the page and fades out
+        homeContent.style.transform = `translateY(${y * 0.18}px)`;
+        homeContent.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.9)));
+
+        // ghost titles drift against the scroll
+        ghosts.forEach((ghost) => {
+            const rect = ghost.parentElement.getBoundingClientRect();
+            const p = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
+            ghost.style.setProperty('--par', `${(p * 90).toFixed(1)}px`);
+        });
+
+        targetSkew = Math.max(-8, Math.min(8, (y - lastY) * 0.35));
+        lastY = y;
     }
-});
 
-let isScrolling = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(apply);
+        }
+    }, { passive: true });
 
-window.addEventListener('wheel', (e) => {
-    if (contactActive || isScrolling) return;
+    window.addEventListener('resize', apply, { passive: true });
 
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) < 50) return;
-
-    isScrolling = true;
-
-    if (delta > 0 && currentSection < TOTAL_SECTIONS - 1) {
-        navigateToSection(currentSection + 1);
-    } else if (delta < 0 && currentSection > 0) {
-        navigateToSection(currentSection - 1);
+    // marquee leans with the scroll velocity, then settles
+    if (!reducedMotion && marquee) {
+        (function skewLoop() {
+            skew += (targetSkew - skew) * 0.12;
+            targetSkew *= 0.88;
+            marquee.style.transform = `skewX(${skew.toFixed(3)}deg)`;
+            requestAnimationFrame(skewLoop);
+        })();
     }
 
-    setTimeout(() => { isScrolling = false; }, 1200);
-});
+    apply();
+})();
 
-let touchStartX = 0;
+// ===== FOOTER =====
+const footerContact = document.getElementById('footerContact');
+const backToTop = document.getElementById('backToTop');
 
-document.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-});
+if (footerContact) {
+    footerContact.addEventListener('click', () => {
+        if (!contactActive) openContact();
+    });
+}
 
-document.addEventListener('touchend', (e) => {
-    if (contactActive) return;
-
-    const touchEndX = e.changedTouches[0].screenX;
-    const swipeThreshold = 50;
-
-    if (touchStartX - touchEndX > swipeThreshold && currentSection < TOTAL_SECTIONS - 1) {
-        navigateToSection(currentSection + 1);
-    } else if (touchEndX - touchStartX > swipeThreshold && currentSection > 0) {
-        navigateToSection(currentSection - 1);
-    }
-});
+if (backToTop) {
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+}
 
 // ===== CUSTOM CURSOR =====
 const cursorDot = document.getElementById('cursorDot');
@@ -191,10 +236,16 @@ const cursorRing = document.getElementById('cursorRing');
 
     const hoverSelector = 'a, button, [data-hover], .project-nav-item';
     document.addEventListener('mouseover', (e) => {
-        if (e.target.closest(hoverSelector)) cursorRing.classList.add('hovering');
+        if (e.target.closest(hoverSelector)) {
+            cursorRing.classList.add('hovering');
+            cursorDot.classList.add('hovering');
+        }
     });
     document.addEventListener('mouseout', (e) => {
-        if (e.target.closest(hoverSelector)) cursorRing.classList.remove('hovering');
+        if (e.target.closest(hoverSelector)) {
+            cursorRing.classList.remove('hovering');
+            cursorDot.classList.remove('hovering');
+        }
     });
 })();
 
@@ -271,16 +322,27 @@ class DecryptEffect {
     }
 }
 
+const decryptEffects = new Map();
+
 document.querySelectorAll('.decrypt-text').forEach((el) => {
     const effect = new DecryptEffect(el);
+    decryptEffects.set(el, effect);
     setTimeout(() => effect.decrypt(), 1600);
     el.addEventListener('mouseenter', () => effect.decrypt());
 });
 
+// Scramble every decrypt element inside a container (nav clicks, contact open, ...)
+function decryptAll(root) {
+    (root || document).querySelectorAll('.decrypt-text').forEach((el) => {
+        const effect = decryptEffects.get(el);
+        if (effect) effect.decrypt();
+    });
+}
+
 // ===== THEME TOGGLE =====
 const themeToggle = document.querySelector('.theme-toggle');
 const toggleLabel = document.querySelector('.toggle-label');
-const toggleEffect = new DecryptEffect(toggleLabel);
+const toggleEffect = decryptEffects.get(toggleLabel) || new DecryptEffect(toggleLabel);
 
 function setThemeLabel(theme, animate) {
     const text = theme === 'dark' ? 'DARK MODE' : 'LIGHT MODE';
@@ -447,19 +509,6 @@ prevProjectBtn.addEventListener('click', () => {
 
 nextProjectBtn.addEventListener('click', () => {
     if (currentProject < PROJECTS.length - 1) {
-        currentProject++;
-        updateProject();
-    }
-});
-
-// Keyboard navigation for projects (only on WORK section)
-document.addEventListener('keydown', (e) => {
-    if (currentSection !== 2 || contactActive) return;
-
-    if (e.key === 'ArrowUp' && currentProject > 0) {
-        currentProject--;
-        updateProject();
-    } else if (e.key === 'ArrowDown' && currentProject < PROJECTS.length - 1) {
         currentProject++;
         updateProject();
     }
