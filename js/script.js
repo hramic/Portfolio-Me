@@ -250,26 +250,29 @@ const cursorRing = document.getElementById('cursorRing');
 })();
 
 // ===== MAGNETIC ELEMENTS =====
-(function initMagnetic() {
-    if (window.matchMedia('(hover: none), (pointer: coarse)').matches || reducedMotion) return;
+const magneticEnabled = !window.matchMedia('(hover: none), (pointer: coarse)').matches && !reducedMotion;
 
-    document.querySelectorAll('[data-magnetic]').forEach((el) => {
-        const strength = 0.35;
+function magnetize(el) {
+    if (!magneticEnabled || el.dataset.magnetized) return;
+    el.dataset.magnetized = 'true';
 
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            el.style.transition = 'transform 0.1s ease-out';
-            el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-        });
+    const strength = 0.28;
 
-        el.addEventListener('mouseleave', () => {
-            el.style.transition = 'transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)';
-            el.style.transform = 'translate(0, 0)';
-        });
+    el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        el.style.transition = 'transform 0.08s ease-out';
+        el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
     });
-})();
+
+    el.addEventListener('mouseleave', () => {
+        el.style.transition = 'transform 0.45s cubic-bezier(0.19, 1, 0.22, 1)';
+        el.style.transform = 'translate(0, 0)';
+    });
+}
+
+document.querySelectorAll('[data-magnetic]').forEach(magnetize);
 
 // ===== LIVE CLOCK =====
 (function initClock() {
@@ -324,11 +327,17 @@ class DecryptEffect {
 
 const decryptEffects = new Map();
 
-document.querySelectorAll('.decrypt-text').forEach((el) => {
+function registerDecrypt(el) {
+    if (decryptEffects.has(el)) return decryptEffects.get(el);
     const effect = new DecryptEffect(el);
     decryptEffects.set(el, effect);
-    setTimeout(() => effect.decrypt(), 1600);
     el.addEventListener('mouseenter', () => effect.decrypt());
+    return effect;
+}
+
+document.querySelectorAll('.decrypt-text').forEach((el) => {
+    const effect = registerDecrypt(el);
+    setTimeout(() => effect.decrypt(), 1600);
 });
 
 // Scramble every decrypt element inside a container (nav clicks, contact open, ...)
@@ -429,15 +438,18 @@ function renderProjects() {
 
         // Top nav item
         const navItem = document.createElement('span');
-        navItem.className = 'project-nav-item';
+        navItem.className = 'project-nav-item decrypt-text';
         navItem.dataset.project = index;
         navItem.textContent = `PROJ ${String(index + 1).padStart(2, '0')}`;
+        navItem.dataset.text = navItem.textContent;
         navItem.addEventListener('click', () => {
             if (index !== currentProject) {
                 currentProject = index;
                 updateProject();
             }
         });
+        registerDecrypt(navItem);
+        magnetize(navItem);
         projectNavTop.appendChild(navItem);
     });
 
