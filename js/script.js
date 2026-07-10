@@ -23,10 +23,19 @@ const homeSection = sections[0];
 homeSection.classList.remove('in-view');
 
 (function runPreloader() {
-    if (reducedMotion) {
+    let finished = false;
+
+    function finish() {
+        if (finished) return;
+        finished = true;
+        preloaderCounter.textContent = '100';
         preloader.classList.add('done');
         homeSection.classList.add('in-view');
         setTimeout(() => preloader.remove(), 1000);
+    }
+
+    if (reducedMotion) {
+        finish();
         return;
     }
 
@@ -34,6 +43,7 @@ homeSection.classList.remove('in-view');
     const start = performance.now();
 
     function tick(now) {
+        if (finished) return;
         const t = Math.min((now - start) / duration, 1);
         // ease-out so the counter rushes early and settles late
         const eased = 1 - Math.pow(1 - t, 3);
@@ -42,12 +52,14 @@ homeSection.classList.remove('in-view');
         if (t < 1) {
             requestAnimationFrame(tick);
         } else {
-            preloader.classList.add('done');
-            homeSection.classList.add('in-view');
-            setTimeout(() => preloader.remove(), 1000);
+            finish();
         }
     }
     requestAnimationFrame(tick);
+
+    // rAF is suspended in background tabs — make sure the site
+    // still opens if the page loads while not visible.
+    setTimeout(finish, duration + 600);
 })();
 
 // ===== SECTION NAVIGATION =====
@@ -236,6 +248,7 @@ class DecryptEffect {
     decrypt() {
         if (this.running) return;
         this.running = true;
+        this.text = this.element.getAttribute('data-text');
 
         let iteration = 0;
         const interval = setInterval(() => {
@@ -266,20 +279,31 @@ document.querySelectorAll('.decrypt-text').forEach((el) => {
 
 // ===== THEME TOGGLE =====
 const themeToggle = document.querySelector('.theme-toggle');
-const toggleIcon = document.querySelector('.toggle-icon');
+const toggleLabel = document.querySelector('.toggle-label');
+const toggleEffect = new DecryptEffect(toggleLabel);
+
+function setThemeLabel(theme, animate) {
+    const text = theme === 'dark' ? 'DARK MODE' : 'LIGHT MODE';
+    toggleLabel.setAttribute('data-text', text);
+    if (animate) {
+        toggleEffect.decrypt();
+    } else {
+        toggleLabel.textContent = text;
+    }
+}
 
 const currentTheme = localStorage.getItem('theme') || 'light';
 if (currentTheme === 'dark') {
     document.body.classList.add('dark-theme');
-    toggleIcon.style.transform = 'rotate(180deg)';
 }
+setThemeLabel(currentTheme, false);
 
 themeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark-theme');
 
     const theme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
     localStorage.setItem('theme', theme);
-    toggleIcon.style.transform = theme === 'dark' ? 'rotate(180deg)' : 'rotate(0deg)';
+    setThemeLabel(theme, true);
 });
 
 // ===== PROJECT SHOWCASE =====
