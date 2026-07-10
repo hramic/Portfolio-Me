@@ -418,7 +418,17 @@ function updateProject(instant = false) {
         setTimeout(setDescription, 300);
     }
 
-    workGhost.textContent = String(currentProject + 1).padStart(2, '0');
+    // Ghost background number follows the active project
+    const ghostText = String(currentProject + 1).padStart(2, '0');
+    if (instant || reducedMotion) {
+        workGhost.textContent = ghostText;
+    } else if (workGhost.textContent !== ghostText) {
+        workGhost.classList.add('switching');
+        setTimeout(() => {
+            workGhost.textContent = ghostText;
+            workGhost.classList.remove('switching');
+        }, 350);
+    }
 
     projectCounter.textContent = total
         ? `${String(currentProject + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`

@@ -36,6 +36,15 @@ body.dark-theme {
     color: #fff;
 }
 
+button:focus {
+    outline: none;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
 body {
     font-family: 'Geist Mono', monospace;
     background-color: var(--bg-color);
@@ -422,6 +431,23 @@ body.dark-theme .toggle-orb {
 .home-section {
     justify-content: flex-start;
     align-items: center;
+    /* keep centered content clear of the fixed header and bottom UI */
+    padding-top: 120px;
+    padding-bottom: 160px;
+}
+
+@media (max-height: 850px) {
+    .main-title {
+        font-size: clamp(48px, min(11vw, 15vh), 170px);
+    }
+
+    .home-eyebrow {
+        margin-bottom: 16px;
+    }
+
+    .home-tagline {
+        margin-top: 22px;
+    }
 }
 
 .portfolio-label {
@@ -646,7 +672,7 @@ body.dark-theme .toggle-orb {
 
 .about-image-frame {
     width: 100%;
-    max-width: 420px;
+    max-width: 540px;
     aspect-ratio: 4 / 5;
     background: linear-gradient(160deg, var(--gradient-start), var(--gradient-middle) 60%, var(--gradient-end));
     border-radius: 12px;
@@ -668,7 +694,7 @@ body.dark-theme .toggle-orb {
 }
 
 .about-image-frame img {
-    width: 92%;
+    width: 100%;
     height: auto;
     display: block;
     transform: translateY(4%) scale(1.02);
@@ -699,6 +725,12 @@ body.dark-theme .toggle-orb {
     right: -4%;
     transform: translateY(-50%);
     font-size: clamp(240px, 34vw, 520px);
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.work-ghost.switching {
+    opacity: 0;
+    transform: translateY(-56%);
 }
 
 .work-left {
@@ -1261,6 +1293,8 @@ body.dark-theme .toggle-orb {
     .about-grid {
         grid-template-columns: 1fr;
         gap: 50px;
+        /* caption must clear the fixed clock in single-column layout */
+        padding-bottom: 110px;
     }
 
     .theme-toggle {
