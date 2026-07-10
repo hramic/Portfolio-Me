@@ -138,13 +138,32 @@ document.addEventListener('keydown', (e) => {
     let skew = 0;
     let ticking = false;
 
+    // Fixed header hides when scrolling down, returns on any upward scroll
+    const headerEls = [
+        document.querySelector('.nav'),
+        document.querySelector('.theme-toggle'),
+        contactBtn
+    ].filter(Boolean);
+
+    function updateHeader(y, prevY) {
+        if (y < 120 || y < prevY - 3) {
+            headerEls.forEach((el) => el.classList.remove('ui-hidden'));
+        } else if (y > prevY + 3) {
+            headerEls.forEach((el) => el.classList.add('ui-hidden'));
+        }
+    }
+
     function apply() {
         ticking = false;
         const y = window.scrollY;
+        const prevY = lastY;
+        lastY = y;
         const max = document.documentElement.scrollHeight - window.innerHeight;
         if (scrollProgress) {
             scrollProgress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
         }
+
+        updateHeader(y, prevY);
 
         // nav + progress follow whichever section covers the viewport center
         // (measured directly so it also works for sections taller than the screen)
@@ -167,11 +186,16 @@ document.addEventListener('keydown', (e) => {
             ghost.style.setProperty('--par', `${(p * 90).toFixed(1)}px`);
         });
 
-        targetSkew = Math.max(-8, Math.min(8, (y - lastY) * 0.35));
-        lastY = y;
+        targetSkew = Math.max(-8, Math.min(8, (y - prevY) * 0.35));
     }
 
     window.addEventListener('scroll', () => {
+        // rAF is suspended in hidden tabs; run synchronously there so
+        // the ticking flag can't get stuck
+        if (document.hidden) {
+            apply();
+            return;
+        }
         if (!ticking) {
             ticking = true;
             requestAnimationFrame(apply);
@@ -252,6 +276,8 @@ const cursorRing = document.getElementById('cursorRing');
 // ===== MAGNETIC ELEMENTS =====
 const magneticEnabled = !window.matchMedia('(hover: none), (pointer: coarse)').matches && !reducedMotion;
 
+// Writes --mx/--my custom properties instead of an inline transform so
+// state classes like .ui-hidden keep full control of the transform.
 function magnetize(el) {
     if (!magneticEnabled || el.dataset.magnetized) return;
     el.dataset.magnetized = 'true';
@@ -260,15 +286,13 @@ function magnetize(el) {
 
     el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        el.style.transition = 'transform 0.08s ease-out';
-        el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+        el.style.setProperty('--mx', `${((e.clientX - rect.left - rect.width / 2) * strength).toFixed(1)}px`);
+        el.style.setProperty('--my', `${((e.clientY - rect.top - rect.height / 2) * strength).toFixed(1)}px`);
     });
 
     el.addEventListener('mouseleave', () => {
-        el.style.transition = 'transform 0.45s cubic-bezier(0.19, 1, 0.22, 1)';
-        el.style.transform = 'translate(0, 0)';
+        el.style.setProperty('--mx', '0px');
+        el.style.setProperty('--my', '0px');
     });
 }
 

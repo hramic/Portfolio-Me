@@ -45,6 +45,13 @@ button:focus-visible {
     outline-offset: 3px;
 }
 
+/* Magnetic elements move via --mx/--my so state classes (e.g. header
+   hiding) can still control the transform */
+[data-magnetic] {
+    transform: translate(var(--mx, 0px), var(--my, 0px));
+    transition: transform 0.18s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -312,7 +319,14 @@ body.has-cursor [data-hover] {
     padding: 10px 18px;
     color: var(--text-color);
     font-family: 'Geist Mono', monospace;
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.35s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.theme-toggle.ui-hidden {
+    transform: translateY(-180%);
+    opacity: 0;
+    pointer-events: none;
+    transition-delay: 0.05s;
 }
 
 .theme-toggle:hover {
@@ -357,7 +371,14 @@ body.dark-theme .toggle-orb {
     letter-spacing: 2px;
     cursor: pointer;
     z-index: 100;
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.35s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-btn.ui-hidden {
+    transform: translateY(-180%);
+    opacity: 0;
+    pointer-events: none;
+    transition-delay: 0.1s;
 }
 
 .contact-btn:hover {
@@ -406,7 +427,13 @@ body.dark-theme .toggle-orb {
     border: 1px solid var(--stroke);
     border-radius: 100px;
     padding: 5px;
-    transition: background 0.4s ease, border-color 0.4s ease;
+    transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.35s ease, background 0.4s ease, border-color 0.4s ease;
+}
+
+.nav.ui-hidden {
+    transform: translate(-50%, -180%);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .nav-btn {
@@ -768,7 +795,7 @@ body.dark-theme .toggle-orb {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 80px;
-    align-items: start;
+    align-items: center;
     margin-top: 50px;
 }
 
@@ -810,7 +837,6 @@ body.dark-theme .toggle-orb {
 .skill-list li:hover {
     background: var(--text-color);
     color: var(--bg-color);
-    transform: translateY(-3px);
 }
 
 .about-image {
@@ -847,12 +873,12 @@ body.dark-theme .toggle-orb {
     width: 100%;
     height: auto;
     display: block;
-    transform: translateY(4%) scale(1.02);
+    transform: translateY(1%) scale(1.02);
     transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .about-image-frame:hover img {
-    transform: translateY(2%) scale(1.06);
+    transform: translateY(0) scale(1.06);
 }
 
 .about-image-caption {
@@ -1584,6 +1610,11 @@ body.dark-theme .toggle-orb {
         transform: translateX(-50%);
         bottom: 68px;
         width: max-content;
+    }
+
+    /* nav sits at the bottom on mobile, so it hides downward */
+    .nav.ui-hidden {
+        transform: translate(-50%, 220%);
     }
 
     .nav-btn {
