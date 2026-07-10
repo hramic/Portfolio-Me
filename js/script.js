@@ -95,6 +95,11 @@ const revealObserver = new IntersectionObserver((entries) => {
         } else {
             entry.target.classList.remove('in-view');
         }
+
+        // clock + progress step aside while the footer is on screen
+        if (entry.target.id === 'footer') {
+            document.body.classList.toggle('footer-visible', entry.isIntersecting);
+        }
     });
 }, { threshold: 0.2 });
 

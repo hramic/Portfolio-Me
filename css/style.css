@@ -398,6 +398,16 @@ body.dark-theme .toggle-orb {
     letter-spacing: 2px;
     opacity: 0.7;
     z-index: 100;
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* both slide away while the footer is on screen so they never
+   overlap the copyright / socials / back-to-top row */
+body.footer-visible .clock-label,
+body.footer-visible .section-progress {
+    opacity: 0;
+    transform: translateY(14px);
+    pointer-events: none;
 }
 
 .clock-dot {
@@ -474,6 +484,7 @@ body.dark-theme .toggle-orb {
     letter-spacing: 2px;
     opacity: 0.7;
     z-index: 100;
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .progress-track {
