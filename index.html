@@ -11,6 +11,10 @@
     <link rel="icon" href="/img/lightsymbol.svg">
 </head>
 <body>
+    <script>
+        // Apply the saved theme before first paint so the preloader matches it
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-theme');
+    </script>
     <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="preloader-counter" id="preloaderCounter">00</div>
