@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@200;300;400;500;600&family=Archivo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=4">
     <link rel="icon" href="img/lightsymbol.svg">
 </head>
 <body>
@@ -149,28 +149,33 @@
                 </div>
 
                 <div class="work-right">
-                    <!-- Project Navigation Top (rendered from js/projects.js) -->
-                    <div class="project-nav-top" id="projectNavTop"></div>
-
-                    <!-- Project Showcase -->
-                    <div class="project-showcase" id="projectShowcase">
-                        <button class="project-arrow-side prev" id="prevProject" data-hover data-magnetic aria-label="Previous project">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <!-- Project carousel: subtle arrows + sliding PROJ window, centered over the card -->
+                    <div class="project-nav-wrap">
+                        <button class="project-arrow-side prev" id="prevProject" data-hover aria-label="Previous project">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M15 18l-6-6 6-6"/>
                             </svg>
                         </button>
 
-                        <!-- Slides rendered from js/projects.js -->
-                        <div class="projects-slider" id="projectsSlider"></div>
+                        <!-- Project Navigation (rendered from js/projects.js) -->
+                        <div class="project-nav-top" id="projectNavTop"></div>
 
-                        <button class="project-arrow-side next" id="nextProject" data-hover data-magnetic aria-label="Next project">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button class="project-arrow-side next" id="nextProject" data-hover aria-label="Next project">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M9 18l6-6-6-6"/>
                             </svg>
                         </button>
                     </div>
 
+                    <!-- Project Showcase -->
+                    <div class="project-showcase" id="projectShowcase">
+                        <!-- Slides rendered from js/projects.js -->
+                        <div class="projects-slider" id="projectsSlider"></div>
+                    </div>
+
+                    <!-- counter kept for later:
                     <div class="project-counter" id="projectCounter"></div>
+                    -->
                 </div>
             </section>
         </div>
@@ -248,7 +253,7 @@
         </div>
     </div>
 
-    <script src="js/projects.js?v=3"></script>
-    <script src="js/script.js?v=3"></script>
+    <script src="js/projects.js?v=4"></script>
+    <script src="js/script.js?v=4"></script>
 </body>
 </html>
