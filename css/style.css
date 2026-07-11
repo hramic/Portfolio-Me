@@ -1104,7 +1104,8 @@ body.footer-visible .section-progress {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 105px 0 80px;
+    /* top padding clears the carousel row (top 118px + 30px tall) */
+    padding: 175px 0 70px;
 }
 
 .project-slide.active {
