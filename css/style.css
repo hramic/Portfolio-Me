@@ -1108,6 +1108,20 @@ body.footer-visible .section-progress {
     opacity: 0.85;
     min-height: 108px;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    /* keep the \n\n line breaks written in projects.js */
+    white-space: pre-line;
+}
+
+.work-description a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: opacity 0.3s ease;
+}
+
+.work-description a:hover {
+    opacity: 0.7;
 }
 
 .work-project-title.switching,
