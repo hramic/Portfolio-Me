@@ -951,7 +951,7 @@ body.footer-visible .section-progress {
     border-bottom: 1px solid var(--stroke);
     cursor: pointer;
     overflow: hidden;
-    transition: color 0.35s ease;
+    transition: color 0.55s ease;
 }
 
 /* fill sweeps up on hover / tap, content inverts */
@@ -962,7 +962,7 @@ body.footer-visible .section-progress {
     background: var(--text-color);
     transform: scaleY(0);
     transform-origin: bottom;
-    transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .stack-row:hover::before,
@@ -993,7 +993,7 @@ body.footer-visible .section-progress {
     font-size: clamp(20px, 2.4vw, 32px);
     font-weight: 800;
     letter-spacing: 0.01em;
-    transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .stack-row:hover .stack-name,
@@ -1008,7 +1008,7 @@ body.footer-visible .section-progress {
     max-height: 0;
     opacity: 0;
     transform: translateX(-14px);
-    transition: max-height 0.45s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.35s ease 0.05s, transform 0.45s cubic-bezier(0.19, 1, 0.22, 1) 0.05s;
+    transition: max-height 0.7s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.55s ease 0.08s, transform 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.08s;
 }
 
 .stack-row:hover .stack-detail,
