@@ -2,16 +2,20 @@
 // Single source of truth for the WORK section.
 // To add a new project: drop the image into /img and add an entry here
 // (or open the site with #admin in the URL and use the helper panel).
+// `image` shows while the site is in LIGHT mode; optional `imageDarkMode`
+// swaps in while the site is in DARK mode (for contrast).
 const PROJECTS = [
     {
-        title: "Design Sprint 2025",
-        image: "img/project1.png",
-        description: "Visual identity & media designs for <strong>Design Sprint 2025</strong> - EESTEC LC Sarajevo workshop (Instagram post and Google Forms header included)"
+        title: "Expense tracker app",
+        image: "img/project1_dark.png",
+        imageDarkMode: "img/project1_light.png",
+        description: "a full-stack Next.js app that automates personal finance tracking by parsing Gmail emails with user-defined regex rules, extracting transaction data straight from emails and <strong>eliminating manual entry</strong>. Includes multi-currency budgeting, spending analytics, PDF export, push notifications, and more. \n\nStack: TypeScript, Prisma, PostgreSQL, NextAuth"
     },
     {
-        title: "Design Sprint 2024",
-        image: "img/project2.png",
-        description: "Visual identity & media designs for <strong>Design Sprint 2024</strong> - EESTEC LC Sarajevo workshop (Instagram post, Google Forms header and Event Certificate included)"
+        title: "Folio 01 Prototype",
+        image: "img/project2_dark.png",
+        imageDarkMode: "img/project2_light.png",
+        description: "UI/UX concept for a modern portfolio website - from initial wireframes to a <strong>fully functional</strong> prototype, showcasing a clean and intuitive design. Check it out by clicking <strong><a href='https://www.figma.com/design/YqXQvgKa3MQ5CBonHH1XKi/Portfolio?node-id=88-33&t=pKPjNBDBsP1gCH8q-1' target='_blank'>here</a></strong>! \n\nStack: Figma"
     },
     {
         title: "Coming Soon",

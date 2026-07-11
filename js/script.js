@@ -415,7 +415,17 @@ themeToggle.addEventListener('click', () => {
     const theme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
     localStorage.setItem('theme', theme);
     setThemeLabel(theme, true);
+    syncProjectImagesToTheme();
 });
+
+// Swap project images to their theme variant (dark site -> light image)
+function syncProjectImagesToTheme() {
+    const dark = document.body.classList.contains('dark-theme');
+    document.querySelectorAll('.project-image').forEach((img) => {
+        const target = dark ? img.dataset.srcDarkTheme : img.dataset.srcLightTheme;
+        if (target && img.getAttribute('src') !== target) img.src = target;
+    });
+}
 
 // ===== PROJECT SHOWCASE =====
 const projectsSlider = document.getElementById('projectsSlider');
@@ -451,7 +461,9 @@ function renderProjects() {
 
         const file = document.createElement('span');
         file.className = 'card-file';
-        file.textContent = project.image ? project.image.split('/').pop() : 'coming_soon.tbd';
+        file.textContent = project.image
+            ? project.image.split('/').pop().replace(/_(dark|light)(?=\.)/, '')
+            : 'coming_soon.tbd';
 
         const cardIndex = document.createElement('span');
         cardIndex.className = 'card-index';
@@ -468,7 +480,12 @@ function renderProjects() {
 
         if (project.image) {
             const img = document.createElement('img');
-            img.src = project.image;
+            // light-theme site shows `image`, dark-theme site shows `imageDarkMode`
+            img.dataset.srcLightTheme = project.image;
+            img.dataset.srcDarkTheme = project.imageDarkMode || project.image;
+            img.src = document.body.classList.contains('dark-theme')
+                ? img.dataset.srcDarkTheme
+                : img.dataset.srcLightTheme;
             img.alt = project.title;
             img.className = 'project-image';
             img.loading = 'lazy';
