@@ -303,6 +303,17 @@ function magnetize(el) {
 
 document.querySelectorAll('[data-magnetic]').forEach(magnetize);
 
+// ===== MY STACK ROWS =====
+// Hover handles desktop via CSS; click/tap toggles for touch devices
+document.querySelectorAll('.stack-row').forEach((row) => {
+    row.addEventListener('click', () => {
+        document.querySelectorAll('.stack-row.open').forEach((other) => {
+            if (other !== row) other.classList.remove('open');
+        });
+        row.classList.toggle('open');
+    });
+});
+
 // ===== LIVE CLOCK =====
 (function initClock() {
     const clockTime = document.getElementById('clockTime');
