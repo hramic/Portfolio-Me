@@ -17,7 +17,8 @@
     --nav-text: #fff;
     --surface: #e6e4df;
     --stroke: #14141222;
-    --card-shadow: 0 18px 50px rgba(20, 20, 18, 0.08), 0 4px 14px rgba(20, 20, 18, 0.05);
+    /* negative spread keeps the sides clean — shadow lives below the card */
+    --card-shadow: 0 24px 48px -20px rgba(20, 20, 18, 0.16), 0 6px 16px -8px rgba(20, 20, 18, 0.06);
     --noise-opacity: 0.03;
     user-select: none;
 }
