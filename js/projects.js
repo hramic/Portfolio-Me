@@ -12,5 +12,20 @@ const PROJECTS = [
         title: "Design Sprint 2024",
         image: "img/project2.png",
         description: "Visual identity & media designs for <strong>Design Sprint 2024</strong> - EESTEC LC Sarajevo workshop (Instagram post, Google Forms header and Event Certificate included)"
+    },
+    {
+        title: "Coming Soon",
+        image: "",
+        description: "A new <strong>brand identity</strong> project is in the works - full case study landing here soon."
+    },
+    {
+        title: "Coming Soon",
+        image: "",
+        description: "Mobile app <strong>UI/UX concept</strong> - wireframes to polished prototype, currently in progress."
+    },
+    {
+        title: "Coming Soon",
+        image: "",
+        description: "Experimental <strong>motion & interaction</strong> playground - dropping when it's ready."
     }
 ];

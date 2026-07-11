@@ -440,7 +440,7 @@ function renderProjects() {
 
         const file = document.createElement('span');
         file.className = 'card-file';
-        file.textContent = project.image.split('/').pop();
+        file.textContent = project.image ? project.image.split('/').pop() : 'coming_soon.tbd';
 
         const cardIndex = document.createElement('span');
         cardIndex.className = 'card-index';
@@ -451,16 +451,22 @@ function renderProjects() {
         const media = document.createElement('div');
         media.className = 'project-card-media';
 
-        const img = document.createElement('img');
-        img.src = project.image;
-        img.alt = project.title;
-        img.className = 'project-image';
-        img.loading = 'lazy';
-        img.addEventListener('error', () => {
-            media.innerHTML = `<div class="project-placeholder"><span>${project.title}</span><span class="placeholder-note">image not found</span></div>`;
-        });
+        function showPlaceholder(note) {
+            media.innerHTML = `<div class="project-placeholder"><span>${project.title}</span><span class="placeholder-note">${note}</span></div>`;
+        }
 
-        media.appendChild(img);
+        if (project.image) {
+            const img = document.createElement('img');
+            img.src = project.image;
+            img.alt = project.title;
+            img.className = 'project-image';
+            img.loading = 'lazy';
+            img.addEventListener('error', () => showPlaceholder('image not found'));
+            media.appendChild(img);
+        } else {
+            // placeholder project — no image yet
+            showPlaceholder('WORK IN PROGRESS');
+        }
         card.append(bar, media);
         slide.appendChild(card);
         projectsSlider.appendChild(slide);
