@@ -866,6 +866,8 @@ body.footer-visible .section-progress {
     flex-direction: column;
     gap: 14px;
     align-items: center;
+    /* frame rises to roughly half the ABOUT title height */
+    margin-top: -110px;
 }
 
 .about-image-frame {
@@ -933,7 +935,7 @@ body.footer-visible .section-progress {
 .work-left {
     flex: 0 0 calc(33.333% - 40px);
     max-width: calc(33.333% - 40px);
-    padding-top: 140px;
+    padding-top: 108px;
     padding-right: 60px;
     position: relative;
     z-index: 2;
@@ -1003,16 +1005,27 @@ body.footer-visible .section-progress {
     z-index: 2;
 }
 
+/* Carousel row: subtle arrows around the sliding PROJ window,
+   centered over the project card */
+.project-nav-wrap {
+    position: absolute;
+    top: 118px;
+    /* half of the 70px right padding keeps it centered on the card */
+    left: calc(50% - 35px);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 20;
+}
+
 /* Sliding 3-item window: previous / active / next, others hidden */
 .project-nav-top {
-    position: absolute;
-    top: 125px;
-    right: 70px;
+    position: relative;
     width: 440px;
     height: 30px;
     font-size: 18px;
     letter-spacing: 0.5px;
-    z-index: 20;
 }
 
 .project-nav-item {
@@ -1202,38 +1215,32 @@ body.footer-visible .section-progress {
     z-index: 20;
 }
 
-/* Arrows float above the card so they are always reachable */
+/* Subtle mini arrows beside the PROJ carousel */
 .project-arrow-side {
-    position: absolute;
-    top: calc(50% - 27px);
-    background: color-mix(in srgb, var(--bg-color) 70%, transparent);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--stroke);
+    background: none;
+    border: none;
     color: var(--text-color);
     cursor: pointer;
-    width: 54px;
-    height: 54px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease, color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, color 0.3s ease;
     border-radius: 50%;
-    z-index: 30;
+    flex-shrink: 0;
 }
 
 .project-arrow-side:hover:not(:disabled) {
-    background: var(--text-color);
-    color: var(--bg-color);
-    border-color: var(--text-color);
+    opacity: 1;
+    color: var(--accent-color);
 }
 
 .project-arrow-side:disabled {
-    opacity: 0.25;
+    opacity: 0.12;
     cursor: not-allowed;
 }
-
-.project-arrow-side.prev { left: 14px; }
-.project-arrow-side.next { right: 14px; }
 
 /* ===== CONTACT OVERLAY ===== */
 .contact-overlay {
@@ -1494,9 +1501,12 @@ body.footer-visible .section-progress {
         padding-right: 0;
     }
 
-    .project-nav-top {
-        right: 40px;
+    .project-nav-wrap {
         top: 10px;
+    }
+
+    .about-image {
+        margin-top: 0;
     }
 
     .project-slide {
@@ -1606,18 +1616,22 @@ body.footer-visible .section-progress {
         display: none;
     }
 
-    .project-nav-top {
-        position: relative;
-        top: auto;
-        right: auto;
+    .project-nav-wrap {
+        position: static;
+        transform: none;
         width: 100%;
-        height: 26px;
         margin: 10px 0 4px;
+    }
+
+    .project-nav-top {
+        flex: 1;
+        min-width: 0;
+        height: 26px;
         font-size: 14px;
     }
 
     .project-nav-item {
-        transform: translateX(calc(-50% + var(--off, 0) * 110px));
+        transform: translateX(calc(-50% + var(--off, 0) * 100px));
     }
 
     .work-right {
@@ -1633,10 +1647,6 @@ body.footer-visible .section-progress {
 
     .project-slide {
         padding: 8px 0;
-    }
-
-    .project-arrow-side {
-        display: none;
     }
 
     .project-card-bar {

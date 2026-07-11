@@ -542,9 +542,11 @@ function updateProject(instant = false) {
         }, 350);
     }
 
-    projectCounter.textContent = total
-        ? `${String(currentProject + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`
-        : '';
+    if (projectCounter) {
+        projectCounter.textContent = total
+            ? `${String(currentProject + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`
+            : '';
+    }
 
     prevProjectBtn.disabled = currentProject === 0;
     nextProjectBtn.disabled = currentProject >= total - 1;
