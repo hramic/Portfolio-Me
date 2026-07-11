@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamza Ramić - Designer & Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@200;300;400;500;600&family=Archivo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="icon" href="img/lightsymbol.svg">
+</head>
+<body>
+    <script>
+        // Apply the saved theme before first paint so the preloader matches it
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-theme');
+    </script>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-counter" id="preloaderCounter">00</div>
+        <div class="preloader-label">HAMZA RAMIĆ — PORTFOLIO:01</div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Scroll progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" data-hover data-magnetic aria-label="Switch theme">
+        <span class="toggle-orb"></span>
+        <span class="toggle-label decrypt-text" data-text="LIGHT MODE">LIGHT MODE</span>
+    </button>
+
+    <!-- Contact Button -->
+    <button class="contact-btn decrypt-text" id="contactBtn" data-hover data-magnetic data-text="CONTACT">CONTACT</button>
+
+    <!-- Live clock -->
+    <div class="clock-label">
+        <span class="clock-dot"></span>
+        <span>SARAJEVO, BA</span>
+        <span id="clockTime">--:--</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active decrypt-text" data-section="0" data-hover data-magnetic data-text="HOME">HOME</button>
+            <button class="nav-btn decrypt-text" data-section="1" data-hover data-magnetic data-text="ABOUT">ABOUT</button>
+            <button class="nav-btn decrypt-text" data-section="2" data-hover data-magnetic data-text="PROJECTS">PROJECTS</button>
+        </nav>
+
+        <!-- Section progress -->
+        <div class="section-progress">
+            <span class="progress-current" id="progressCurrent">01</span>
+            <span class="progress-track"><span class="progress-fill" id="progressFill"></span></span>
+            <span class="progress-total">03</span>
+        </div>
+
+        <!-- Sections Wrapper -->
+        <div class="sections-wrapper" id="sectionsWrapper">
+            <!-- HOME Section -->
+            <section class="section home-section in-view">
+                <div class="portfolio-label decrypt-text" data-text="PORTFOLIO:01">PORTFOLIO:01</div>
+
+                <div class="home-content">
+                    <p class="home-eyebrow reveal" style="--d: 0.1s">
+                        <span class="eyebrow-index">001</span> CREATIVE PORTFOLIO — ©2026
+                    </p>
+                    <h1 class="main-title">
+                        <span class="line-mask"><span class="line-inner" style="--d: 0.15s">HAMZA</span></span>
+                        <span class="line-mask"><span class="line-inner line-accent" style="--d: 0.25s">RAMIĆ<sup class="title-sup">™</sup></span></span>
+                        <span class="line-mask"><span class="line-inner line-outline" style="--d: 0.35s">DESIGN ×</span></span>
+                        <span class="line-mask"><span class="line-inner" style="--d: 0.45s">DEVELOP</span></span>
+                    </h1>
+                    <p class="home-tagline reveal" style="--d: 0.6s">
+                        I design and build digital products —<br>
+                        based in Sarajevo, working everywhere.
+                    </p>
+                </div>
+
+                <!-- Rotating badge -->
+                <div class="rotating-badge reveal" style="--d: 0.7s" data-hover>
+                    <svg viewBox="0 0 120 120" class="badge-svg">
+                        <defs>
+                            <path id="badgeCircle" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0"/>
+                        </defs>
+                        <text class="badge-text">
+                            <textPath href="#badgeCircle">OPEN TO WORK • OPEN TO COLLAB • </textPath>
+                        </text>
+                    </svg>
+                    <span class="badge-arrow">↗</span>
+                </div>
+
+                <!-- Marquee -->
+                <div class="marquee">
+                    <div class="marquee-track" id="marqueeTrack">
+                        <span>UI/UX DESIGN — FRONTEND — .NET BACKEND — VISUAL IDENTITY — FIGMA — INTERACTION —&nbsp;</span>
+                        <span>UI/UX DESIGN — FRONTEND — .NET BACKEND — VISUAL IDENTITY — FIGMA — INTERACTION —&nbsp;</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT Section -->
+            <section class="section about-section">
+                <span class="section-ghost" aria-hidden="true">ABOUT</span>
+                <div class="about-content">
+                    <h2 class="section-title about-title">
+                        <span class="line-mask"><span class="line-inner" style="--d: 0.2s">ABOUT<span class="title-dot">.</span></span></span>
+                    </h2>
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <p class="reveal" style="--d: 0.35s">I'm Hamza — a full-stack developer and UI/UX designer working where <em>design</em> meets <em>code</em>. I design and build digital products, from the first Figma frame to production.</p>
+                            <p class="reveal" style="--d: 0.45s">Driven by curiosity and a strong attention to detail, I craft thoughtful user-centered products that combine clean visuals, intuitive structure and solid engineering underneath.</p>
+                            <ul class="skill-list reveal" style="--d: 0.55s">
+                                <li class="decrypt-text" data-hover data-magnetic data-text="UI/UX">UI/UX</li>
+                                <li class="decrypt-text" data-hover data-magnetic data-text="BRANDING">BRANDING</li>
+                                <li class="decrypt-text" data-hover data-magnetic data-text="FIGMA">FIGMA</li>
+                                <li class="decrypt-text" data-hover data-magnetic data-text="VISUAL ID">VISUAL ID</li>
+                                <li class="decrypt-text" data-hover data-magnetic data-text="MOTION">MOTION</li>
+                            </ul>
+                        </div>
+                        <div class="about-image reveal" style="--d: 0.4s">
+                            <div class="about-image-frame" data-hover>
+                                <img src="img/hamza_no_bg.png" alt="Hamza Ramić">
+                            </div>
+                            <span class="about-image-caption decrypt-text" data-text="HAMZA.PNG — 2026">HAMZA.PNG — 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- MY STACK — explorable skills list -->
+                    <div class="stack-block reveal" style="--d: 0.5s">
+                        <div class="stack-head">
+                            <span class="stack-label"><span class="eyebrow-index">002.5</span> MY STACK</span>
+                            <span class="stack-hint">hover / tap to explore</span>
+                        </div>
+                        <ul class="stack-list">
+                            <li class="stack-row" data-hover>
+                                <span class="stack-index">01</span>
+                                <span class="stack-name">FIGMA PROTOTYPING</span>
+                                <span class="stack-detail">wireframes, design systems, interactive prototypes</span>
+                                <span class="stack-tag">DESIGN</span>
+                            </li>
+                            <li class="stack-row" data-hover>
+                                <span class="stack-index">02</span>
+                                <span class="stack-name">FRONTEND</span>
+                                <span class="stack-detail">HTML, CSS, JavaScript — sites like this one</span>
+                                <span class="stack-tag">CODE</span>
+                            </li>
+                            <li class="stack-row" data-hover>
+                                <span class="stack-index">03</span>
+                                <span class="stack-name">BACKEND</span>
+                                <span class="stack-detail">APIs, data models and server-side logic</span>
+                                <span class="stack-tag">CODE</span>
+                            </li>
+                            <li class="stack-row" data-hover>
+                                <span class="stack-index">04</span>
+                                <span class="stack-name">.NET</span>
+                                <span class="stack-detail">C# services and application backends</span>
+                                <span class="stack-tag">CODE</span>
+                            </li>
+                            <li class="stack-row" data-hover>
+                                <span class="stack-index">05</span>
+                                <span class="stack-name">APPIAN</span>
+                                <span class="stack-detail">low-code enterprise apps — yes, really</span>
+                                <span class="stack-tag">PLATFORM</span>
+                            </li>
+                            <li class="stack-row" data-hover>
+                                <span class="stack-index">06</span>
+                                <span class="stack-name">GIT & DEPLOYMENT</span>
+                                <span class="stack-detail">GitHub, Pages, versioned releases</span>
+                                <span class="stack-tag">WORKFLOW</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WORK Section -->
+            <section class="section work-section">
+                <span class="section-ghost work-ghost" id="workGhost" aria-hidden="true">01</span>
+                <div class="work-left">
+                    <h2 class="section-title work-title">
+                        <span class="line-mask"><span class="line-inner" style="--d: 0.2s">WORK<span class="title-dot">.</span></span></span>
+                    </h2>
+                    <h3 class="work-project-title reveal" style="--d: 0.3s" id="workProjectTitle"></h3>
+                    <p class="work-description reveal" style="--d: 0.35s" id="workDescription"></p>
+                    <div class="work-meta reveal" style="--d: 0.45s">
+                        <span class="work-meta-label">SELECTED PROJECTS</span>
+                        <span class="work-meta-line"></span>
+                    </div>
+                </div>
+
+                <div class="work-right">
+                    <!-- Project carousel: subtle arrows + sliding PROJ window, centered over the card -->
+                    <div class="project-nav-wrap">
+                        <button class="project-arrow-side prev" id="prevProject" data-hover aria-label="Previous project">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 18l-6-6 6-6"/>
+                            </svg>
+                        </button>
+
+                        <!-- Project Navigation (rendered from js/projects.js) -->
+                        <div class="project-nav-top" id="projectNavTop"></div>
+
+                        <button class="project-arrow-side next" id="nextProject" data-hover aria-label="Next project">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Project Showcase -->
+                    <div class="project-showcase" id="projectShowcase">
+                        <!-- Slides rendered from js/projects.js -->
+                        <div class="projects-slider" id="projectsSlider"></div>
+                    </div>
+
+                    <!-- counter kept for later:
+                    <div class="project-counter" id="projectCounter"></div>
+                    -->
+                </div>
+            </section>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer" id="footer">
+            <p class="footer-eyebrow reveal" style="--d: 0.1s"><span class="eyebrow-index">004</span> GOT A PROJECT IN MIND?</p>
+            <button class="footer-cta" id="footerContact" data-hover>
+                <span class="line-mask"><span class="line-inner" style="--d: 0.15s">LET'S WORK</span></span>
+                <span class="line-mask"><span class="line-inner" style="--d: 0.25s">TOGETHER<span class="title-dot">.</span></span></span>
+            </button>
+            <div class="footer-bottom reveal" style="--d: 0.4s">
+                <span class="footer-copy">©2026 HAMZA RAMIĆ</span>
+                <div class="footer-socials">
+                    <a href="https://www.linkedin.com/in/hramic03/" target="_blank" class="decrypt-text" data-hover data-magnetic data-text="LINKEDIN">LINKEDIN</a>
+                    <a href="https://github.com/hramic" target="_blank" class="decrypt-text" data-hover data-magnetic data-text="GITHUB">GITHUB</a>
+                    <a href="https://www.instagram.com/ramichhh/" target="_blank" class="decrypt-text" data-hover data-magnetic data-text="INSTAGRAM">INSTAGRAM</a>
+                </div>
+                <button class="back-to-top decrypt-text" id="backToTop" data-hover data-magnetic data-text="BACK TO TOP ↑">BACK TO TOP ↑</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Contact Overlay -->
+    <div class="contact-overlay" id="contactOverlay">
+        <button class="contact-close" id="contactClose" data-hover data-magnetic>✕</button>
+        <div class="contact-content">
+            <h2 class="contact-title">
+                <span class="line-mask"><span class="contact-title-inner">LET'S TALK<span class="title-dot">.</span></span></span>
+            </h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label decrypt-text" data-text="Email">Email</span>
+                    <a href="mailto:hamzaramic76@gmail.com" class="contact-link" data-hover>hamzaramic76@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label decrypt-text" data-text="LinkedIn">LinkedIn</span>
+                    <a href="https://www.linkedin.com/in/hramic03/" target="_blank" class="contact-link" data-hover>linkedin.com/in/hramic03</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label decrypt-text" data-text="Github">Github</span>
+                    <a href="https://github.com/hramic" target="_blank" class="contact-link" data-hover>github.com/hramic</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label decrypt-text" data-text="Instagram">Instagram</span>
+                    <a href="https://www.instagram.com/ramichhh/" target="_blank" class="contact-link" data-hover>@ramichhh</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin helper panel (open site with #admin in the URL, or Ctrl+Shift+A) -->
+    <div class="admin-panel" id="adminPanel" hidden>
+        <div class="admin-inner">
+            <button class="admin-close" id="adminClose" aria-label="Close admin panel">✕</button>
+            <h3 class="admin-title">ADD PROJECT</h3>
+            <p class="admin-hint">Preview is local only. To publish, copy the snippet below into <code>js/projects.js</code> and push.</p>
+            <label class="admin-field">
+                <span>Title</span>
+                <input type="text" id="adminProjTitle" placeholder="Design Sprint 2026">
+            </label>
+            <label class="admin-field">
+                <span>Image path</span>
+                <input type="text" id="adminProjImage" placeholder="img/project3.png">
+            </label>
+            <label class="admin-field">
+                <span>Description (HTML allowed)</span>
+                <textarea id="adminProjDesc" rows="3" placeholder="Visual identity for <strong>...</strong>"></textarea>
+            </label>
+            <div class="admin-actions">
+                <button id="adminPreviewBtn">Preview in slider</button>
+                <button id="adminCopyBtn">Copy projects.js</button>
+            </div>
+            <textarea id="adminOutput" rows="8" readonly spellcheck="false"></textarea>
+        </div>
+    </div>
+
+    <script src="js/projects.js?v=6"></script>
+    <script src="js/script.js?v=6"></script>
+</body>
+</html>
