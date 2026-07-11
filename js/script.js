@@ -484,7 +484,6 @@ function renderProjects() {
             }
         });
         registerDecrypt(navItem);
-        magnetize(navItem);
         projectNavTop.appendChild(navItem);
     });
 
@@ -505,8 +504,12 @@ function updateProject(instant = false) {
         slide.classList.toggle('active', index === currentProject);
     });
 
+    // Sliding window: active centered, neighbours peek from the sides
     navItems.forEach((item, index) => {
-        item.classList.toggle('active', index === currentProject);
+        const off = index - currentProject;
+        item.style.setProperty('--off', off);
+        item.classList.toggle('active', off === 0);
+        item.classList.toggle('near', Math.abs(off) === 1);
     });
 
     // Title + description swap with a small fade

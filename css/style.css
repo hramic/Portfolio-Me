@@ -240,6 +240,8 @@ body.has-cursor [data-hover] {
     background: none;
     border: none;
     cursor: pointer;
+    /* nudges the centered block a bit above true center */
+    margin-bottom: 9vh;
     font-family: 'Archivo', sans-serif;
     font-size: clamp(56px, 9vw, 150px);
     font-weight: 800;
@@ -814,8 +816,9 @@ body.footer-visible .section-progress {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 80px;
-    align-items: center;
-    margin-top: 50px;
+    /* text and image rise together toward the title */
+    align-items: start;
+    margin-top: 40px;
 }
 
 .about-text {
@@ -989,6 +992,7 @@ body.footer-visible .section-progress {
 
 .work-right {
     flex: 1;
+    min-width: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -999,23 +1003,29 @@ body.footer-visible .section-progress {
     z-index: 2;
 }
 
+/* Sliding 3-item window: previous / active / next, others hidden */
 .project-nav-top {
     position: absolute;
     top: 125px;
     right: 70px;
-    display: flex;
-    gap: 40px;
+    width: 440px;
+    height: 30px;
     font-size: 18px;
     letter-spacing: 0.5px;
     z-index: 20;
 }
 
 .project-nav-item {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(calc(-50% + var(--off, 0) * 145px));
     color: var(--text-color);
     cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.3;
-    position: relative;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
 }
 
 .project-nav-item::after {
@@ -1031,17 +1041,23 @@ body.footer-visible .section-progress {
     transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+.project-nav-item.near {
+    opacity: 0.3;
+    pointer-events: auto;
+}
+
+.project-nav-item.near:hover {
+    opacity: 0.7;
+}
+
 .project-nav-item.active {
     opacity: 1;
     font-weight: 600;
+    pointer-events: auto;
 }
 
 .project-nav-item.active::after {
     transform: scaleX(1);
-}
-
-.project-nav-item:hover {
-    opacity: 0.8;
 }
 
 .project-showcase {
@@ -1058,7 +1074,8 @@ body.footer-visible .section-progress {
 
 .projects-slider {
     display: flex;
-    width: calc(100% - 160px);
+    width: 100%;
+    min-width: 0;
     height: 100%;
     transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
     position: relative;
@@ -1085,7 +1102,7 @@ body.footer-visible .section-progress {
 /* Browser-window style project card */
 .project-card {
     width: 100%;
-    max-width: 920px;
+    max-width: 860px;
     max-height: 100%;
     display: flex;
     flex-direction: column;
@@ -1185,9 +1202,12 @@ body.footer-visible .section-progress {
     z-index: 20;
 }
 
-/* Arrows */
+/* Arrows float above the card so they are always reachable */
 .project-arrow-side {
-    background: none;
+    position: absolute;
+    top: calc(50% - 27px);
+    background: color-mix(in srgb, var(--bg-color) 70%, transparent);
+    backdrop-filter: blur(12px);
     border: 1px solid var(--stroke);
     color: var(--text-color);
     cursor: pointer;
@@ -1198,8 +1218,7 @@ body.footer-visible .section-progress {
     justify-content: center;
     transition: background 0.3s ease, color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
     border-radius: 50%;
-    flex-shrink: 0;
-    z-index: 15;
+    z-index: 30;
 }
 
 .project-arrow-side:hover:not(:disabled) {
@@ -1213,8 +1232,8 @@ body.footer-visible .section-progress {
     cursor: not-allowed;
 }
 
-.project-arrow-side.prev { order: -1; }
-.project-arrow-side.next { order: 3; }
+.project-arrow-side.prev { left: 14px; }
+.project-arrow-side.next { right: 14px; }
 
 /* ===== CONTACT OVERLAY ===== */
 .contact-overlay {
@@ -1588,11 +1607,17 @@ body.footer-visible .section-progress {
     }
 
     .project-nav-top {
-        position: static;
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        height: 26px;
         margin: 10px 0 4px;
-        justify-content: flex-start;
-        gap: 24px;
         font-size: 14px;
+    }
+
+    .project-nav-item {
+        transform: translateX(calc(-50% + var(--off, 0) * 110px));
     }
 
     .work-right {
