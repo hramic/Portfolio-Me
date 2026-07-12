@@ -18,11 +18,6 @@ const PROJECTS = [
         description: "UI/UX concept for a modern portfolio website - from initial wireframes to a <strong>fully functional</strong> prototype, showcasing a clean and intuitive design. Check it out by clicking <strong><a href='https://www.figma.com/design/YqXQvgKa3MQ5CBonHH1XKi/Portfolio?node-id=88-33&t=pKPjNBDBsP1gCH8q-1' target='_blank'>here</a></strong>! \n\nStack: Figma"
     },
     {
-        title: "Coming Soon",
-        image: "",
-        description: "A new <strong>brand identity</strong> project is in the works - full case study landing here soon."
-    },
-    {
         title: "myportfolio.ba",
         image: "img/project4.png",
         description: "full brand identity and UI/UX design for a free CV builder & portfolio platform. <strong>Covers everything</strong> from logo and visual identity to the complete product experience: landing page, the step-by-step CV builder flow, template designs, and the final live portfolio website. <strong>Designed end-to-end in Figma</strong> with a clean, modern visual language."
@@ -30,6 +25,11 @@ const PROJECTS = [
     {
         title: "Coming Soon",
         image: "",
-        description: "Experimental <strong>motion & interaction</strong> playground - dropping when it's ready."
+        description: "A new <strong>project</strong> is in the works - full case study landing here soon."
     }
+    //{
+    //    title: "Coming Soon",
+    //    image: "",
+    //    description: "Experimental <strong>motion & interaction</strong> playground - dropping when it's ready."
+    //}
 ];
