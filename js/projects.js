@@ -23,9 +23,9 @@ const PROJECTS = [
         description: "A new <strong>brand identity</strong> project is in the works - full case study landing here soon."
     },
     {
-        title: "Coming Soon",
-        image: "",
-        description: "Mobile app <strong>UI/UX concept</strong> - wireframes to polished prototype, currently in progress."
+        title: "myportfolio.ba",
+        image: "/img/project4.png",
+        description: "full brand identity and UI/UX design for a free CV builder & portfolio platform. <strong>Covers everything</strong> from logo and visual identity to the complete product experience: landing page, the step-by-step CV builder flow, template designs, and the final live portfolio website. <strong>Designed end-to-end in Figma</strong> with a clean, modern visual language."
     },
     {
         title: "Coming Soon",
