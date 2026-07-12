@@ -336,16 +336,17 @@ class DecryptEffect {
         this.element = element;
         this.text = element.getAttribute('data-text');
         this.chars = '!<>-_\\/[]{}—=+*^?#________';
-        this.running = false;
+        this.interval = null;
     }
 
     decrypt() {
-        if (this.running) return;
-        this.running = true;
+        // restart instead of ignoring so a click mid-animation (e.g. the
+        // theme toggle while its hover decrypt runs) still shows the new text
+        clearInterval(this.interval);
         this.text = this.element.getAttribute('data-text');
 
         let iteration = 0;
-        const interval = setInterval(() => {
+        this.interval = setInterval(() => {
             this.element.textContent = this.text
                 .split('')
                 .map((char, index) => {
@@ -356,9 +357,9 @@ class DecryptEffect {
                 .join('');
 
             if (iteration >= this.text.length) {
-                clearInterval(interval);
+                clearInterval(this.interval);
+                this.interval = null;
                 this.element.textContent = this.text;
-                this.running = false;
             }
             iteration += 0.5;
         }, 40);
@@ -502,6 +503,7 @@ function renderProjects() {
         // Top nav item
         const navItem = document.createElement('span');
         navItem.className = 'project-nav-item decrypt-text';
+        navItem.setAttribute('data-hover', '');
         navItem.dataset.project = index;
         navItem.textContent = `PROJ ${String(index + 1).padStart(2, '0')}`;
         navItem.dataset.text = navItem.textContent;
