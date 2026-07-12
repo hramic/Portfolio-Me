@@ -24,7 +24,7 @@ const PROJECTS = [
     },
     {
         title: "myportfolio.ba",
-        image: "/img/project4.png",
+        image: "img/project4.png",
         description: "full brand identity and UI/UX design for a free CV builder & portfolio platform. <strong>Covers everything</strong> from logo and visual identity to the complete product experience: landing page, the step-by-step CV builder flow, template designs, and the final live portfolio website. <strong>Designed end-to-end in Figma</strong> with a clean, modern visual language."
     },
     {
